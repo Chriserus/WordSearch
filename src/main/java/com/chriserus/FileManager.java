@@ -9,9 +9,8 @@ public class FileManager {
     private static final String WORDS_FILE_LOCATION = "src\\resources\\words.txt";
     private static final String CONFIG_FILE_LOCATION = "src\\resources\\config.properties";
     private int numberOfWords;
-    private int boardVerticalSize;
-    private int boardHorizontalSize;
     private List<String> words;
+    private Board board;
 
     public FileManager() {
         readProperties();
@@ -39,23 +38,20 @@ public class FileManager {
             Properties properties = new Properties();
             properties.load(input);
             numberOfWords = Integer.parseInt(properties.getProperty("words.number"));
-            boardVerticalSize = Integer.parseInt(properties.getProperty("board.size.vertical"));
-            boardHorizontalSize = Integer.parseInt(properties.getProperty("board.size.horizontal"));
+            int boardVerticalSize = Integer.parseInt(properties.getProperty("board.size.vertical"));
+            int boardHorizontalSize = Integer.parseInt(properties.getProperty("board.size.horizontal"));
+            board = new Board(boardVerticalSize, boardHorizontalSize);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
     public List<String> getWords() {
         return words;
     }
 
-    public int getBoardVerticalSize() {
-        return boardVerticalSize;
-    }
-
-    public int getBoardHorizontalSize() {
-        return boardHorizontalSize;
-    }
 }
